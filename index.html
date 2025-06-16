@@ -12,20 +12,21 @@
     /* 控制字体大小与颜色 */
     .t1{
         color: rgb(76, 152, 203);
-        font-size: 1em;
+        font-size: clamp(16px, 1vw, 24px);
         font-weight: bold;
     }
     .t2{
         color: gray;
-        font-size: 1em;
+        font-size: clamp(16px, 1vw, 24px);
     }
     .t3{
         color: #3463af;
-        font-size: 1.2em;
+        font-size: clamp(20px, 1.1vw, 28px);
+        line-height: normal;
     }
 
     #inter:hover{
-        font-size: 1.2em;
+        font-size: clamp(20px, 1.1vw, 28px);
         cursor: pointer;
         text-decoration: underline;
     }
@@ -45,7 +46,7 @@
         position: relative;
         z-index: 2;
 
-        margin: -100px,auto,0,auto;
+        margin: 5%,auto,0,auto;
         padding: 30px;
         border: 3px red;
 
@@ -54,19 +55,24 @@
 
     /* 左右布局的盒子 */
     .flex-container{
-        display:flex;
-        align-items:start;
-        gap:50px;
+         display:flex;
+        align-items:center;
+        gap:50px; 
     }
     .flex-container img{
         width:45%;
-        height:auto;
-        border-radius: 8px; /*圆角*/
-    }
+        height:auto; 
+        /*圆角*/
+         border-radius: 8px; 
+    } 
     .text-content{
         flex:1;
-        font-size: 1.1em; /* 整体文字适当放大 */
+        /* font-size:clamp(16px, 1.1vw, 24px);  整体文字适当放大  */
         line-height: 1.6em;
+
+        /* flex: 1 1 300px;
+        font-size: 1rem;
+        line-height: 1.6; */
     }
 
     /* 顶部导航栏 */
@@ -191,7 +197,6 @@
                     </b>
                 </p>
                 <hr>
-                <br>
                 
                 <p id="inter" style="text-align: right;font-size: larger;">进入实验 ></p>
             </div>
