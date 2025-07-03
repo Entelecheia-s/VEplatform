@@ -1,117 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大物虚拟实验平台</title>
-    <style> 
-    .zw{
-        text-indent:40px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大物虚拟实验平台</title>
+  <!-- 引入 Swiper 样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      /* 允许垂直滚动 */
+      overflow-y: auto;
+    }
+
+    /* Swiper 卡片区域样式 */
+    .swiper {
+      width: 85%;
+      padding: 20px 40px;
+      position: relative;
+    }
+
+    .swiper-slide {
+      width: 260px;
+      height: 390px;
+      background-color: #34373b;
+      display: flex;
+      /* 水平、垂直方向居中 */
+      justify-content: center;
+      align-items: center;
+      /* 圆角 */
+      /* border-radius: 10px; */
+      /* 超出部分隐藏 */
+      overflow: hidden;
+    }
+
+    .swiper-slide img {
+      width: 260px;
+      height: 390px;
+    }
+
+    /* 箭头样式 */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: white;
     }
 
     /* 控制字体大小与颜色 */
-    .t1{
-        color: rgb(76, 152, 203);
-        font-size: clamp(16px, 1vw, 24px);
-        font-weight: bold;
-    }
-    .t2{
-        color: gray;
-        font-size: clamp(16px, 1vw, 24px);
-    }
-    .t3{
-        color: #3463af;
-        font-size: clamp(20px, 1.1vw, 28px);
-        line-height: normal;
+    .t1 {
+      color: rgb(76, 152, 203);
+      /* 自适应字大小：最小值，理想值，最大值 */
+      font-size: clamp(16px, 1vw, 24px);
+      /* 字加粗 */
+      font-weight: bold;
     }
 
-    #inter:hover{
-        font-size: clamp(20px, 1.1vw, 28px);
-        cursor: pointer;
-        text-decoration: underline;
+    .t2 {
+      color: gray;
+      font-size: clamp(16px, 1vw, 24px);
     }
+
+    .t3 {
+      color: #3463af;
+      font-size: clamp(20px, 1.1vw, 28px);
+      /* 行高：正常 */
+      line-height: normal;
+      font-weight: bold;
+    }
+
+    /* 鼠标悬停：应用以下样式 */
+    #inter:hover {
+      font-size: clamp(20px, 1.1vw, 28px);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
     /* 控制分割线 */
     hr {
-    width: 80%;           /* 控制长度不要全宽 */
-    margin-left: 0;       /* 靠左对齐更自然 */
-    border: 0;
-    border-top: 1px solid #ccc;
-}
-    #center{
-        width: 88%;
-        box-sizing: border-box;
-        background: white;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        border-radius: 8px;
-        position: absolute;
-        z-index: 2;
-
-        padding: 30px;
-        padding-top: 3%;
-        
-
-        /* 外边距 */
-        margin: 10% 6% 0 6%  
+      width: 80%;
+      /* 靠左对齐 */
+      margin-left: 0;
+      border: 0;
+      border-top: 1px solid #ccc;
     }
-    
 
+    #center {
+      width: 88%;
+      /* 圆角阴影盒子 */
+      box-sizing: border-box;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      background: white;
+      position: relative;
+      z-index: 2;
+
+      padding: 30px;
+      padding-top: 3%;
+      margin: 10% 6% 3% 6%
+    }
 
     /* 左右布局的盒子 */
-    .flex-container{
-        width: 90%;
-        margin: 0 auto;
-        display:flex;
-        align-items:center;
-        gap:90px; 
+    .flex-container {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 90px;
     }
-    .img-combination{
-        width:45%;
 
-        position: relative;
-        display: inline-block;
-        /* width: fit-content; */
-    } 
-
-    .text-content{
-        flex:1;
-        line-height: 1.6em;
+    .img-combination {
+      width: 45%;
+      position: relative;
+      display: inline-block;
     }
- 
+
+    .text-content {
+      flex: 1;
+      line-height: 1.6em;
+    }
+
     /* 图片组合色块 */
-    .combination{
-      /* width: 45%;
-      height: 50px; */
+    .combination {
       background-color: rgb(76, 152, 203);
-      margin: 10% 10% auto auto; /* 居中并与下方间距 */
-
+      /* 居中并与下方间距 */
+      margin: 10% 10% auto auto;
       position: absolute;
       top: 3px;
-      left: 5px; 
+      left: 5px;
       width: 90%;
       height: 90%;
       z-index: 0;
       border-radius: 2px;
-    } 
+    }
 
     .main-image {
-    position: relative;
-    display: block;
-    z-index: 1;
-    border-radius: 2px;
-    margin: 0 0 15px 10%; 
-  }
+      position: relative;
+      display: block;
+      z-index: 1;
+      border-radius: 2px;
+      margin: 0 0 15px 10%;
+    }
 
     /* 顶部导航栏 */
     .navbar {
-      background-color: #173e63;  /* 深蓝背景 */
-      color: white;/*字体颜色*/
+      /* 深蓝背景 */
+      background-color: #173e63;
+      /*字体颜色*/
+      color: white;
       display: flex;
+
       justify-content: space-between;
       align-items: center;
       padding: 12px 20px;
     }
 
-    .nav-left, .nav-right {
+    .nav-left,
+    .nav-right {
       display: flex;
       align-items: center;
       gap: 20px;
@@ -119,15 +165,20 @@
 
     .menu-icon {
       font-size: 22px;
+      /* 鼠标悬停：变化指针样式为可点击 */
       cursor: pointer;
     }
 
-    .nav-item, .nav-icon, .platform-title {
+    .nav-item,
+    .nav-icon,
+    .platform-title {
       font-size: 16px;
       cursor: pointer;
     }
 
-    .nav-item:hover, .nav-icon:hover {
+    .nav-item:hover,
+    .nav-icon:hover {
+      /* 鼠标悬停：变化下划线 */
       text-decoration: underline;
     }
 
@@ -136,7 +187,9 @@
       font-weight: bold;
     }
 
-    .login-btn, .register-btn {
+    .login-btn,
+    .register-btn {
+      /* 透明背景 */
       background-color: transparent;
       border: 1px solid white;
       border-radius: 15px;
@@ -152,113 +205,199 @@
       margin-left: 5px;
     }
 
-    .login-btn:hover, .register-btn:hover {
+    .login-btn:hover,
+    .register-btn:hover {
       background-color: #4b90c6;
     }
+
     /* 背景图 */
     .banner {
-    width: 100%;
-    height: 200px;  /* 控制高度：可调 */
-    background-image: url("网站背景.jpg"); 
-    background-position: center;
-    background-size: cover; /*保持铺满但不压缩 */
-    background-repeat: no-repeat;
-    position: absolute;
-    z-index: 1;
-}
+      width: 100%;
+      height: 200px;
+      background-image: url("网站背景.jpg");
+      background-position: center;
+
+       /*保持铺满但不压缩 */
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: absolute;
+      z-index: 1;
+    }
+
     /* 顶部横线 */
-    .top-line{
+    .top-line {
       width: 90%;
       height: 3px;
       background-color: #3463af;
-      margin: 0 auto 15px auto; /* 居中并与下方间距 */
+      margin: 0 auto 15px auto;
       border-radius: 2px;
-    } 
-    .t4{
+    }
+
+    .t4 {
       font-size: clamp(20px, 1.1vw, 28px);
       line-height: normal;
-      margin: 0 auto 2% 5%; /* 居中并与下方间距 */
+      margin: 0 auto 2% 5%;
       color: #3463af;
-      }
+    }
 
-    </style>
-   
+    /* 实验库 */
+    #warehouse {
+      width: 100%;
+      height: auto;
+      background-color: #34373b;
+      color: white;
+      padding-top: 3%;
+      align-items: center;
+    }
+
+    /* 实验库顶部横线 */
+    #warehouse-line {
+      width: 90%;
+      height: 6px;
+      background-color: white;
+      color: white;
+      margin: 0 auto 15px auto;
+      border-radius: 2px;
+    }
+
+    .carousel-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 4%;
+      gap: 40px;
+    }
+
+    .arrow {
+      font-size: 60px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .cards {
+      display: flex;
+      gap: 40px;
+    }
+
+    .card {
+      width: 260px;
+      height: 390px;
+      background-color: white;
+    }
+  </style>
 </head>
+
 <body>
-    <header class="navbar">
-        <div class="nav-left">
-          <span class="menu-icon">☰</span>
-          <span class="nav-item">实验</span>
-          <span class="nav-item">学习</span>
-          <span class="nav-item">新闻</span>
-          <span class="nav-item dropdown">学生端 ▼</span>
-        </div>
-        <div class="nav-center">
-          <span class="platform-title">大物虚拟实验平台</span>
-        </div>
-        <div class="nav-right">
-          <span class="nav-icon">🔍</span>
-          <button class="login-btn">登录</button>
-          <button class="register-btn">注册</button>
-        </div>
-      </header>
-      <!-- TODO:在每个可点击的图标上都设置一个正在开发，暂时无法使用的弹窗 -->
+  <header class="navbar">
 
-      <!-- TODO:点击进入实验，弹出请先登录 -->
-
-      <!-- TODO:点击登录按钮，弹出登录页面 -->
-
-      <!-- TODO: 1. 出现了空白边框
-
-
-4. 正文下方实验库盒子设计 -->
-
-      <div class="banner"></div>
-
-    <div id="center">
-      <div class="top-line"></div>
-      <div class="t4"><b>虚拟实验</b></div>
-        <div class="flex-container">
-          <div class="img-combination">
-             <img class="main-image" src="实验图片.jpg" width="90%" height="100%">
-             <div class="combination"></div>
-          </div>
-           
-            <div class="text-content">
-                <p style="line-height: 3px"><span class="t1">实验名称&nbsp;&nbsp;</span><span class="t2">|&nbsp;&nbsp;实验有难度，建议提前预习</span></p> 
-                <p class="t3"><b>变温变电磁场纳米团簇点阵性能测试</b></p>  
-                <hr>
-                <br>
-
-                <p style="line-height: 3px"><span class="t1">实验内容&nbsp;&nbsp;</span><span class="t2">|&nbsp;&nbsp;点击查看实验介绍</span></p> 
-                <p class="t3">
-                    <b>
-                    磁控团簇束流制备微纳粒子点阵体系<br>
-                    结合光学电学实验评估材料性能
-                    </b>
-                </p>
-                <hr>
-                <br>
-
-                <p style="line-height: 3px"><span class="t1">知识范围&nbsp;&nbsp;</span><span class="t2">|&nbsp;&nbsp;涉及知识点较多</span></p> 
-                <p class="t3">
-                    <b>
-                    团簇束流沉积微纳粒子点阵量子输运<br>
-                    库伦阻塞泵浦探测光学平台多元拓展
-                    </b>
-                </p>
-                <hr>
-                
-                <p id="inter" style="text-align: right;font-size: larger;"><a href="https://entelecheia-s.github.io/VE-ex/">进入实验></a></p>
-                
-            </div>
-        </div>
+    <div class="nav-left">
+      <span class="menu-icon">☰</span>
+      <span class="nav-item">实验</span>
+      <span class="nav-item">学习</span>
+      <span class="nav-item">新闻</span>
+      <span class="nav-item dropdown">学生端 ▼</span>
     </div>
 
-    
+    <div class="nav-center">
+      <span class="platform-title">大物虚拟实验平台</span>
+    </div>
 
-    
-    
+    <div class="nav-right">
+      <span class="nav-icon">🔍</span>
+      <button class="login-btn">登录</button>
+      <button class="register-btn">注册</button>
+    </div>
+  </header>
 
+  <!-- TODO:在每个可点击的图标上都设置一个正在开发，暂时无法使用的弹窗 -->
+  <!-- TODO:点击进入实验，弹出请先登录 -->
+  <!-- TODO:点击登录按钮，弹出登录页面 -->
+
+  <div class="banner"></div>
+
+  <div id="center">
+    <div class="top-line"></div>
+    <div class="t4"><b>虚拟实验</b></div>
+
+    <div class="flex-container">
+      <div class="img-combination">
+        <img class="main-image" src="实验图片.jpg" width="90%" height="100%">
+        <div class="combination"></div>
+      </div>
+
+      <div class="text-content">
+        <p style="line-height: 3px"><span class="t1">实验名称&nbsp;&nbsp;</span><span
+            class="t2">|&nbsp;&nbsp;实验有难度，建议提前预习</span></p>
+        <p class="t3">变温变电磁场纳米团簇点阵性能测试</p><hr><br>
+
+        <p style="line-height: 3px"><span class="t1">实验内容&nbsp;&nbsp;</span><span
+            class="t2">|&nbsp;&nbsp;点击查看实验介绍</span></p>
+        <p class="t3">
+            磁控团簇束流制备微纳粒子点阵体系<br>
+            结合光学电学实验评估材料性能
+        </p><hr><br>
+
+        <p style="line-height: 3px"><span class="t1">知识范围&nbsp;&nbsp;</span><span class="t2">|&nbsp;&nbsp;涉及知识点较多</span>
+        </p>
+        <p class="t3">
+            团簇束流沉积微纳粒子点阵量子输运<br>
+            库伦阻塞泵浦探测光学平台多元拓展
+        </p><hr>
+
+        <p id="inter" style="text-align: right;font-size: larger;"><a
+            href="https://entelecheia-s.github.io/VE-ex/">进入实验></a></p>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="warehouse">
+    <div id="warehouse-line"></div>
+    <h1 style="margin: 0 auto 2% 5%;">实验库</h1>
+
+    <!-- 静态无轮播效果 -->
+    <!-- <div class="carousel-container">
+      <div class="arrow">&#9664;</div>
+      <div class="cards">
+        <div class="card"><img style=" width: 260px; height: 390px;" src="轮播图1.png" alt=""></div>
+        <div class="card"><img style=" width: 260px; height: 390px;" src="轮播图2.png" alt=""></div>
+        <div class="card"><img style=" width: 260px; height: 390px;" src="轮播图3.png" alt=""></div>
+      </div>
+      <div class="arrow">&#9654;</div>
+    </div> -->
+
+    <!-- Swiper 主容器 -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <!-- 每个 swiper-slide 是一张卡片 -->
+        <div class="swiper-slide"><img src="p1.png" alt=""></div>
+        <div class="swiper-slide"><img src="p2.png" alt=""></div>
+        <div class="swiper-slide"><img src="p3.png" alt=""></div>
+        <div class="swiper-slide"><img src="p1.png" alt=""></div>
+        <div class="swiper-slide"><img src="p2.png" alt=""></div>
+        <div class="swiper-slide"><img src="p3.png" alt=""></div>
+      </div>
+
+      <!-- 左右箭头导航 -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+
+  <!-- 初始化 Swiper -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".mySwiper", {
+      slidesPerView: 3, // 每次显示3张卡片
+      spaceBetween: 50, // 卡片之间间隔
+      loop: true, // 循环轮播
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      speed: 600 // 切换动画时间（ms）
+    });
+  </script>
 </body>
 </html>
